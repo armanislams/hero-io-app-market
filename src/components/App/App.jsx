@@ -4,7 +4,6 @@ import { BiDownload,BiStar } from 'react-icons/bi';
 
 const App = () => {
     const allApps = useLoaderData().slice(0, 8);
-    console.log(allApps)
     return (
         <div className='bg-gray-100 px-15 space-y-5'>
             <div className='text-center pt-10 '>
@@ -12,9 +11,11 @@ const App = () => {
                 <p className='text-sm text-gray-500 mt-5'>Explore All Trending Apps on the Market developed by us</p>
             </div>
             <div className="divider divider-secondary w-1/30 mx-auto"></div>
-            <div className='grid grid-cols-4 gap-5'>
+            <div className='grid grid-cols-1 lg:grid-cols-4 gap-5'>
                 {
-                    allApps.map(app => <div key={app.id} className="card bg-base-100 shadow-sm">
+                    allApps.map(app => 
+                        <Link to={`/appDetails/${app.id}`} key={app.id}>
+                            <div className="card bg-base-100 shadow-sm">
                 <figure>
                     <img
                     className='h-48 w-1/3'
@@ -30,7 +31,9 @@ const App = () => {
                     <div className="badge badge-outline bg-orange-500 text-yellow-300 font-semibold"><BiStar></BiStar> {app.ratingAvg}</div>
                     </div>
                 </div>
-                </div>)
+                </div>
+                        </Link>
+                    )
                 }
 
             </div>

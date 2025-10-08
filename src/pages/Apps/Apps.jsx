@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLoaderData } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import App from '../../components/App/App';
 
 import { BiDownload,BiStar } from 'react-icons/bi';
@@ -19,7 +19,8 @@ const Apps = () => {
             </div>
             <div className='grid grid-cols-4 gap-5'>
                 {
-                apps.map(app => <div key={app.id} className="card bg-base-100 shadow-sm">
+                apps.map(app => <Link to={`/appDetails/${app.id}`} key={app.id}>
+                <div className="card bg-base-100 shadow-sm">
                                 <figure>
                                     <img
                                     className='h-48 w-1/3'
@@ -35,7 +36,7 @@ const Apps = () => {
                                     <div className="badge badge-outline bg-orange-500 text-yellow-300 font-semibold"><BiStar></BiStar> {app.ratingAvg}</div>
                                     </div>
                                 </div>
-                                </div>)
+                                </div></Link>)
             }
             </div>
         </div>
