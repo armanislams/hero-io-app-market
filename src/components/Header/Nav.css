@@ -1,0 +1,8 @@
+a.active {
+        border-bottom: 2px solid #632EE3;       
+        font-weight: 700;
+        color: #632EE3;
+        background-image: linear-gradient(to right, #632EE3, #9F62F2);
+        background-clip: text;
+        /* color: transparent; */
+    }
