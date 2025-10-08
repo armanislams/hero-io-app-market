@@ -11,7 +11,6 @@ const Error = () => {
             <Link to={'/'}>
             <button className='btn bg-linear-to-r from-[#5e1afc] to-[#9F62F2] text-white text-lg'>Go Home</button>
             </Link>
-            
         </div>
     );
 };

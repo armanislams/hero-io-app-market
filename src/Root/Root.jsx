@@ -8,7 +8,7 @@ const Root = () => {
         <div className=' text-center'>
             <Navbar></Navbar>
             <Outlet></Outlet>
-            {/* <Footer></Footer> */}
+            <Footer></Footer>
             
         </div>
     );
