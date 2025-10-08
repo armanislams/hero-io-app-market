@@ -1,7 +1,9 @@
 
 import React, { useState } from 'react';
-import { Link, useLoaderData } from 'react-router'; 
+import { Link, useLoaderData, useNavigation } from 'react-router'; 
 import { BiDownload, BiStar } from 'react-icons/bi';
+import appError from '../../assets/App-Error.png';
+import logo from '../../../public/logo.png';
 
 
 const Apps = () => {
@@ -13,6 +15,15 @@ const Apps = () => {
     const counterText = search 
         ? `(${searchedApps.length}) Matching Apps` 
         : `(${apps.length}) All Apps`;
+        const navigation  = useNavigation();
+    if(navigation.state === 'loading'){
+        return (
+            <div className='flex  justify-center items-center mt-10'>
+            <img className='animate-spin w-1/15' src={logo} alt="Loading.." />
+             <h1 className='text-7xl font-bold'>Loading...</h1>
+            </div>
+        )
+    }
 
     return (
         <div className='bg-gray-100 px-15 space-y-5'>
@@ -72,16 +83,13 @@ const Apps = () => {
                             </Link>
                         ))
                     ) : (
-                        // No results message
-                        <div className='col-span-4 text-center py-10 text-gray-500 text-lg'>
+                        <div className='col-span-4 text-center py-10 text-gray-500 text-lg flex flex-col items-center gap-5'>
+                            <img src={appError} alt="" />
                             No apps found matching "{search}".
                         </div>
                     )
                 }
             </div>
-
-            {/* The third empty div from your original code is also removed */}
-            
         </div>
     );
 };
