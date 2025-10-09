@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 const Error = () => {
     return (
-        <div className='flex flex-col justify-center items-center gap-5 mt-10'>
+        <div className='bg-gray-100 flex flex-col justify-center items-center gap-5 p-20'>
             <img src={error} alt="error" />
             <h1 className='font-bold text-4xl'>Sorry, page not found</h1>
             <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
