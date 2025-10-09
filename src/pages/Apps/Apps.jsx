@@ -1,28 +1,42 @@
-
 import React, { useState } from 'react';
-import { Link, useLoaderData, useNavigation } from 'react-router'; 
+import { Link, useLoaderData, useNavigation } from 'react-router';
 import { BiDownload, BiStar } from 'react-icons/bi';
 import appError from '../../assets/App-Error.png';
 import logo from '../../../public/logo.png';
 
-
-const Apps = () => {
+const Apps = ({app}) => {
     const apps = useLoaderData();
+    const navigation = useNavigation();
     const [search, setSearch] = useState('');
+    const [isSearching, setIsSearching] = useState(false); 
+    const searchTerm = isSearching ? '' : search;
     const searchedApps = apps.filter(app => 
-        app.title.toLowerCase().includes(search.toLowerCase())
+        app.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
     const counterText = search 
         ? `(${searchedApps.length}) Matching Apps` 
         : `(${apps.length}) All Apps`;
-        const navigation  = useNavigation();
-    if(navigation.state === 'loading'){
+    const handleSearchChange = (e) => {
+        const value = e.target.value;
+        setSearch(value);
+
+        if (value.length > 0) {
+            setIsSearching(true);
+            setTimeout(() => {
+                setIsSearching(false);
+            }, 300); 
+        } else {
+            setIsSearching(false);
+        }
+    };
+    if (navigation.state === 'loading') {
         return (
-            <div className='flex  justify-center items-center mt-10'>
-            <img className='animate-spin w-1/15' src={logo} alt="Loading.." />
-             <h1 className='text-7xl font-bold'>Loading...</h1>
+            <div className='flex flex-col gap-4 justify-center items-center h-screen'>
+                <img className='animate-spin w-20 h-20' src={logo} alt="Loading.." />
+                <h1 className='text-3xl font-bold text-gray-700'>Loading Apps...</h1>
             </div>
-        )
+        );
     }
 
     return (
@@ -32,6 +46,7 @@ const Apps = () => {
                 <div>
                     <h1>{counterText}</h1>
                 </div>
+                
                 <div>
                     <div className="input-group"> 
                         <label className="input input-bordered flex items-center gap-2">
@@ -44,7 +59,7 @@ const Apps = () => {
                             <input 
                                 type="search" 
                                 value={search} 
-                                onChange={e => setSearch(e.target.value)} 
+                                onChange={handleSearchChange}
                                 required 
                                 placeholder="Search" 
                                 className="w-full"
@@ -53,30 +68,25 @@ const Apps = () => {
                     </div>
                 </div>
             </div>
-            <div className='grid lg:grid-cols-4 gap-5'>
+            <div className='grid lg:grid-cols-4 gap-5 min-h-[50vh]'> 
                 {
-                    searchedApps.length > 0 ? (
+                    isSearching ? (
+                        <div className='col-span-4 flex justify-center items-center py-20'>
+                            <img className='animate-spin w-20 h-20' src={logo} alt="Loading.." />
+                            <p className="ml-4 text-xl text-blue-500">Searching...</p>
+                        </div>
+                    ) : searchedApps.length > 0 ? (
                         searchedApps.map(app => (
                             <Link to={`/appDetails/${app.id}`} key={app.id}>
                                 <div className="card bg-base-100 shadow-sm">
                                     <figure>
-                                        <img
-                                            className='h-48 w-1/3'
-                                            src={app.image}
-                                            alt={app.title}
-                                        />
+                                        <img className='h-48 w-1/3' src={app.image} alt={app.title} />
                                     </figure>
                                     <div className="card-body text-center">
-                                        <h2 className="card-title items-center justify-center">
-                                            {app.title}
-                                        </h2>
+                                        <h2 className="card-title items-center justify-center">{app.title}</h2>
                                         <div className="card-actions justify-between">
-                                            <div className="badge badge-outline text-green-500 bg-gray-200 font-semibold flex items-center gap-1">
-                                                <BiDownload /> {app.downloads}
-                                            </div>
-                                            <div className="badge badge-outline bg-orange-500 text-yellow-300 font-semibold flex items-center gap-1">
-                                                <BiStar /> {app.ratingAvg}
-                                            </div>
+                                            <div className="badge badge-outline text-green-500 bg-gray-200 font-semibold flex items-center gap-1"><BiDownload /> {app.downloads}</div>
+                                            <div className="badge badge-outline bg-orange-500 text-yellow-300 font-semibold flex items-center gap-1"><BiStar /> {app.ratingAvg}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -84,8 +94,8 @@ const Apps = () => {
                         ))
                     ) : (
                         <div className='col-span-4 text-center py-10 text-gray-500 text-lg flex flex-col items-center gap-5'>
-                            <img src={appError} alt="" />
-                            No apps found matching "{search}".
+                            <img className='w-40 h-40' src={appError} alt="No Apps Found" />
+                            <p>No apps found matching "{search}".</p>
                         </div>
                     )
                 }

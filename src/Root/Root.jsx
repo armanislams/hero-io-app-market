@@ -3,6 +3,7 @@ import Navbar from '../components/Header/Navbar';
 import { Outlet, useNavigation } from 'react-router';
 import Footer from '../components/Footer/Footer';
 import logo from '../../public/logo.png';
+import { ToastContainer } from 'react-toastify';
 
 const Root = () => {
     const navigation  = useNavigation();
@@ -19,7 +20,7 @@ const Root = () => {
             <Navbar></Navbar> 
             <Outlet></Outlet>
             <Footer></Footer>
-            
+            <ToastContainer />
         </div>
     );
 };

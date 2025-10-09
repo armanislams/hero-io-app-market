@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLoaderData, useParams } from 'react-router';
 import downloadsIcon from '../../assets/icon-downloads.png';
 import ratingIcon from '../../assets/icon-ratings.png';
 import reviewIcon from '../../assets/icon-review.png';
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { addToDB, getStoredApp } from '../AddToDB/AddToDB';
 
 const AppDetails = () => {
 const {id} = useParams();
@@ -18,17 +19,35 @@ const {id} = useParams();
             </div>
     );
    }
+   
+    const [isInstalled, setIsInstalled] = useState(false);
+   const handleInstall = id =>{
+    addToDB(id);
+    setIsInstalled(true);
+    
+   }
+
+    useEffect(() => {
+        const installedApps = getStoredApp();
+        if (installedApps.includes(id)) {
+            setIsInstalled(true);
+        }
+        else{
+            setIsInstalled(false);
+        }
+    }, [id]);
+
     return (
-        <div className=" pt-10 px-20 bg-gray-100 ">
-        <div className='flex gap-10'>
+        <div className=" pt-10 px-20 bg-gray-100">
+        <div className='flex md:flex-row flex-col gap-10 items-center'>
             <div className="">
             <img
             src={image}
             className="max-w-sm rounded-lg shadow-2xl"
             />
             </div>
-            <div className='flex flex-col items-start gap-5'>
-                <div className='w-full text-left'>
+            <div className='flex flex-col items-center lg:items-start gap-5'>
+                <div className='w-full lg:text-left'>
             <h1 className="text-3xl font-bold">{title}</h1>
             <p className='text-gray-400'>Developed by <span className='text-blue-600'>{companyName}</span></p>
             <div className="divider"></div>
@@ -52,7 +71,16 @@ const {id} = useParams();
                 
             </div>
             <div>
-                <button className='btn text-white item bg-green-600'>Install Now ({size}MB)</button>
+                <button
+                    onClick={() => {
+                        handleInstall(id);
+                        setIsInstalled(true);
+                    }}
+                    className='btn text-white item bg-green-600'
+                    disabled={isInstalled}
+                >
+                    {isInstalled ? 'Installed' : `Install Now (${size}MB)`}
+                </button>
             </div>
              </div>
         </div>
