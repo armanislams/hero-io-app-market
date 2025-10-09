@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { getStoredApp } from '../../pages/AddToDB/AddToDB';
 import { Link, useLoaderData } from 'react-router';
-import App from '../App/App';
-import downloadsIcon from '../../assets/icon-downloads.png';
-import ratingIcon from '../../assets/icon-ratings.png';
-import reviewIcon from '../../assets/icon-review.png';
 
 import { BiDownload,BiStar } from 'react-icons/bi';
 
 const Installation = () => {
     const [installedApp, setInstalledApp] = useState([]);
+    const [sort, setSort] = useState('');
    
     const apps = useLoaderData();
     
@@ -25,17 +22,39 @@ const handleUninstall = (id) => {
     localStorage.setItem('app-list', JSON.stringify(updated));
     setInstalledApp(installedApp.filter(app => app.id !== id));
 }
+const handleSort = (type) =>{
+    setSort(type);
+    if(type === 'HIGH-LOW'){
+        const sortedByLow = [...installedApp].sort((a,b)=>b.downloads-a.downloads);
+    setInstalledApp(sortedByLow)
+    }
+    if(type === 'LOW-HIGH'){
+        
+    const sortedByHigh = [...installedApp].sort((a,b)=>a.downloads - b.downloads);
+    setInstalledApp(sortedByHigh)
+    }
+
+}
     return (
         <div className='px-20 bg-gray-100'>
             <div className='flex justify-between items-center text-xl py-5'>
                <div>
                  <h1>({installedApp.length})Installed Apps</h1>
                </div>
-               <div>Filter</div>
+               <div>
+                <div className="dropdown">
+                    <div tabIndex={0} role="button" className="btn m-1">Sort By: {sort?sort:''} </div>
+                    <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                        <li><a onClick={()=>handleSort('HIGH-LOW')}>HIGH-LOW</a></li>
+                        <li><a onClick={()=>handleSort('LOW-HIGH')}>LOW-HIGH</a></li>
+                    </ul>
+                    </div>
+                    </div>
             </div>
             <div>
                 {
                  installedApp.map(app=>  
+                    <Link to={`/appDetails/${app.id}`} key={app.id}>
                  <div className='flex md:flex-row flex-col justify-between gap-10 items-center bg-white p-5 rounded-lg mt-5'>
                             <div className="flex justify-center items-center gap-10 ">
                             <div>
@@ -62,7 +81,8 @@ const handleUninstall = (id) => {
                                 <button onClick={()=>handleUninstall(app.id)} className='btn bg-green-500 text-white rounded-md'>Uninstall
                                 </button>
                             </div>
-                        </div>)
+                        </div>
+                        </Link>)
                 }
                 
             </div>

@@ -4,7 +4,7 @@ import { BiDownload, BiStar } from 'react-icons/bi';
 import appError from '../../assets/App-Error.png';
 import logo from '../../../public/logo.png';
 
-const Apps = ({app}) => {
+const Apps = () => {
     const apps = useLoaderData();
     const navigation = useNavigation();
     const [search, setSearch] = useState('');

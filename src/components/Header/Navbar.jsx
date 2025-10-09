@@ -39,7 +39,7 @@ const Navbar = () => {
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
         {links}
-        <Link to={'https://github.com/armanislams'}><button className="btn bg-linear-to-r from-[#5e1afc] to-[#9F62F2] text-white text-lg"><FaGithub></FaGithub>Contribute</button></Link>
+        <Link to={'https://github.com/armanislams'}><button className="btn mt-2 bg-linear-to-r from-[#5e1afc] to-[#9F62F2] text-white text-lg"><FaGithub></FaGithub>Contribute</button></Link>
       </ul>
       
     </div>
