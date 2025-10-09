@@ -15,7 +15,7 @@ const Navbar = () => {
         <div className="navbar bg-base-100 shadow-sm md:px-20 justify-between " >
   <div className="navbar-start">
     
-    <Link to={'/'}>
+    <Link to={'/'} >
     <div className='flex items-center gap-3'>
         <img className='lg:w-1/12 w-1/5' src={logo} alt="site logo" />
         <h3 className='font-bold text-xl'><span className='bg-linear-to-r from-[#632EE3] to-[#9F62F2] bg-clip-text text-transparent'>HERO.IO</span></h3>
@@ -29,7 +29,7 @@ const Navbar = () => {
     
   </div>
   <div className="navbar-end hidden lg:flex">
-    <Link to={'https://github.com/armanislams'}><button className="btn bg-linear-to-r from-[#5e1afc] to-[#9F62F2] text-white text-lg"><FaGithub></FaGithub>Contribute</button></Link>
+    <Link to={'https://github.com/armanislams'} target="_blank"><button className="btn bg-linear-to-r from-[#5e1afc] to-[#9F62F2] text-white text-lg"><FaGithub></FaGithub>Contribute</button></Link>
   </div>
   <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -39,7 +39,7 @@ const Navbar = () => {
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
         {links}
-        <Link to={'https://github.com/armanislams'}><button className="btn mt-2 bg-linear-to-r from-[#5e1afc] to-[#9F62F2] text-white text-lg"><FaGithub></FaGithub>Contribute</button></Link>
+        <Link to={'https://github.com/armanislams'} target="_blank"><button className="btn mt-2 bg-linear-to-r from-[#5e1afc] to-[#9F62F2] text-white text-lg"><FaGithub></FaGithub>Contribute</button></Link>
       </ul>
       
     </div>
