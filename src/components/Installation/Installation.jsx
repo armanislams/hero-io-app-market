@@ -10,14 +10,21 @@ import { BiDownload,BiStar } from 'react-icons/bi';
 
 const Installation = () => {
     const [installedApp, setInstalledApp] = useState([]);
-    const dbData = getStoredApp();
-    const dataNumber = dbData.map(id=> parseInt(id)) 
+   
     const apps = useLoaderData();
     
     useEffect(()=> {
+         const dbData = getStoredApp();
+    const dataNumber = dbData.map(id=> parseInt(id)) 
         const installedApps = apps.filter(app => dataNumber.includes(app.id))
         setInstalledApp(installedApps)
-    },[])
+    },[apps])
+const handleUninstall = (id) => {
+    const stored = JSON.parse(localStorage.getItem('app-list'));
+    const updated = stored.filter(appId => Number(appId) !== Number(id));
+    localStorage.setItem('app-list', JSON.stringify(updated));
+    setInstalledApp(installedApp.filter(app => app.id !== id));
+}
     return (
         <div className='px-20 bg-gray-100'>
             <div className='flex justify-between items-center text-xl py-5'>
@@ -52,7 +59,7 @@ const Installation = () => {
                             </div>
                             
                              <div className=''>
-                                <button className='btn bg-green-500 text-white rounded-md'>Uninstall
+                                <button onClick={()=>handleUninstall(app.id)} className='btn bg-green-500 text-white rounded-md'>Uninstall
                                 </button>
                             </div>
                         </div>)
