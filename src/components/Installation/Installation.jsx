@@ -3,6 +3,7 @@ import { getStoredApp } from '../../pages/AddToDB/AddToDB';
 import { Link, useLoaderData } from 'react-router';
 
 import { BiDownload,BiStar } from 'react-icons/bi';
+import { toast } from 'react-toastify';
 
 const Installation = () => {
     const [installedApp, setInstalledApp] = useState([]);
@@ -21,6 +22,7 @@ const handleUninstall = (id) => {
     const updated = stored.filter(appId => Number(appId) !== Number(id));
     localStorage.setItem('app-list', JSON.stringify(updated));
     setInstalledApp(installedApp.filter(app => app.id !== id));
+    toast.success('App uninstalled successfully')
 }
 const handleSort = (type) =>{
     setSort(type);
@@ -54,8 +56,9 @@ const handleSort = (type) =>{
             <div>
                 {
                  installedApp.map(app=>  
-                    <Link to={`/appDetails/${app.id}`} key={app.id}>
-                 <div className='flex md:flex-row flex-col justify-between gap-10 items-center bg-white p-5 rounded-lg mt-5'>
+                    
+                 <div key={app.id} className='flex md:flex-row flex-col justify-between gap-10 items-center bg-white p-5 rounded-lg mt-5'>
+                    <Link to={`/appDetails/${app.id}`} >
                             <div className="flex justify-center items-center gap-10 ">
                             <div>
                                 <img
@@ -76,13 +79,14 @@ const handleSort = (type) =>{
                             
                              </div>
                             </div>
+                            </Link>
                             
                              <div className=''>
                                 <button onClick={()=>handleUninstall(app.id)} className='btn bg-green-500 text-white rounded-md'>Uninstall
                                 </button>
                             </div>
                         </div>
-                        </Link>)
+                        )
                 }
                 
             </div>
