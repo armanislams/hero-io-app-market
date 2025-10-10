@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Link, useLoaderData, useNavigation } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import { BiDownload, BiStar } from 'react-icons/bi';
 import appError from '../../assets/App-Error.png';
 import logo from '../../../public/logo.png';
 
 const Apps = () => {
     const apps = useLoaderData();
-    const navigation = useNavigation();
     const [search, setSearch] = useState('');
     const [isSearching, setIsSearching] = useState(false); 
     const searchTerm = isSearching ? '' : search;
@@ -30,17 +29,9 @@ const Apps = () => {
             setIsSearching(false);
         }
     };
-    if (navigation.state === 'loading') {
-        return (
-            <div className='flex flex-col gap-4 justify-center items-center h-screen'>
-                <img className='animate-spin w-20 h-20' src={logo} alt="Loading.." />
-                <h1 className='text-3xl font-bold text-gray-700'>Loading Apps...</h1>
-            </div>
-        );
-    }
-
+    
     return (
-        <div className='bg-gray-100 px-15 space-y-5'>
+        <div className='bg-gray-100 lg:px-15 px-5 space-y-5'>
             <div className='flex justify-between items-center font-semibold text-xl pt-10'>
                 
                 <div>

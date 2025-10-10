@@ -10,24 +10,10 @@ const AppDetails = () => {
 const {id} = useParams();
    const app = useLoaderData();
    const singleApp = app.find(app => app.id == id);
+   const [isInstalled, setIsInstalled] = useState(false);
    const {title,ratings, image, description,companyName,ratingAvg, downloads,reviews,size} = singleApp;
    const ratingsData = ratings;
-   if(!singleApp){
-    return(
-         <div className='text-center py-20'>
-                <h1 className='text-4xl text-red-600'>App Not Found</h1>
-            </div>
-    );
-   }
-   
-    const [isInstalled, setIsInstalled] = useState(false);
-   const handleInstall = id =>{
-    addToDB(id);
-    setIsInstalled(true);
-    
-   }
-
-    useEffect(() => {
+   useEffect(() => {
         const installedApps = getStoredApp();
         if (installedApps.includes(id)) {
             setIsInstalled(true);
@@ -36,14 +22,27 @@ const {id} = useParams();
             setIsInstalled(false);
         }
     }, [id]);
+   if(!singleApp){
+    return(
+         <div className='text-center py-20'>
+                <h1 className='text-4xl text-red-600'>App Not Found</h1>
+            </div>
+    );
+   }
+   
+   const handleInstall = id =>{
+    addToDB(id);
+    setIsInstalled(true);
+    
+   }
 
     return (
-        <div className=" pt-10 px-20 bg-gray-100">
-        <div className='flex md:flex-row flex-col gap-10 items-center'>
+        <div className=" pt-10 lg:px-20 px-5 bg-gray-100">
+        <div className='flex px-5 md:flex-row flex-col gap-10 items-center'>
             <div className="">
             <img
             src={image}
-            className="max-w-sm rounded-lg shadow-2xl"
+            className="lg:max-w-[250px] rounded-lg shadow-2xl"
             />
             </div>
             <div className='flex flex-col items-center lg:items-start gap-5'>
@@ -52,18 +51,18 @@ const {id} = useParams();
             <p className='text-gray-400'>Developed by <span className='text-blue-600'>{companyName}</span></p>
             <div className="divider"></div>
             </div>
-            <div className='flex gap-5 text-left'>
-                <div>
+            <div className='flex gap-5 lg:text-left'>
+                <div className='flex flex-col justify-center items-center'>
                     <img src={downloadsIcon} alt="" />
                     <p>Downloads</p>
                     <h2 className='font-bold text-2xl'>{downloads}</h2>
                 </div>
-                <div>
+                <div className='flex flex-col justify-center items-center'>
                     <img src={ratingIcon} alt="" />
                     <p>Average Ratings</p>
                     <h2 className='font-bold text-2xl'>{ratingAvg}</h2>
                 </div>
-                <div>
+                <div className='flex flex-col justify-center items-center'>
                     <img src={reviewIcon} alt="" />
                     <p>Total Reviews</p>
                     <h2 className='font-bold text-2xl'>{reviews}</h2>

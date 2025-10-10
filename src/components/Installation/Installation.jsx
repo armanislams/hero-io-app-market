@@ -38,7 +38,7 @@ const handleSort = (type) =>{
 
 }
     return (
-        <div className='px-20 bg-gray-100'>
+        <div className='px-5 lg:px-20 bg-gray-100'>
             <div className='flex justify-between items-center text-xl py-5'>
                <div>
                  <h1>({installedApp.length})Installed Apps</h1>
@@ -59,11 +59,11 @@ const handleSort = (type) =>{
                     
                  <div key={app.id} className='flex md:flex-row flex-col justify-between gap-10 items-center bg-white p-5 rounded-lg mt-5'>
                     <Link to={`/appDetails/${app.id}`} >
-                            <div className="flex justify-center items-center gap-10 ">
+                            <div className="flex flex-col lg:flex-row justify-center items-center gap-10 ">
                             <div>
                                 <img
                             src={app.image}
-                            className="w-[100px]  rounded-lg shadow-2xl"
+                            className="lg:w-[100px]  rounded-lg shadow-2xl"
                             />
                             </div>
                             <div className='flex flex-col items-center lg:items-start gap-5'>

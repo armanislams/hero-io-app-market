@@ -5,7 +5,7 @@ import { BiDownload,BiStar } from 'react-icons/bi';
 const App = () => {
     const allApps = useLoaderData().slice(0, 8);
     return (
-        <div className='bg-gray-100 px-15 space-y-5'>
+        <div className='bg-gray-100 lg:px-15 px-5 space-y-5'>
             <div className='text-center pt-10 '>
                 <h1 className='text-5xl font-bold'>Trending Apps</h1>
                 <p className='text-sm text-gray-500 mt-5'>Explore All Trending Apps on the Market developed by us</p>
@@ -18,7 +18,7 @@ const App = () => {
                             <div className="card bg-base-100 shadow-sm">
                 <figure>
                     <img
-                    className='h-48 w-1/3'
+                    className='lg:h-48 lg:w-1/3 w-1/2 pt-5'
                     src={app.image}
                     alt={app.title} />
                 </figure>

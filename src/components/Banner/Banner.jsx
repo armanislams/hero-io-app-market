@@ -8,7 +8,7 @@ import appbtn from '../../../public/appstore.png'
 
 const Banner = () => {
     return (
-        <div className='bg-gray-100 flex flex-col justify-center items-center  space-y-5'>
+        <div className='bg-gray-100 px-5 flex flex-col justify-center items-center  space-y-5'>
             <div className='mt-5 mx-auto'>
                 <h1 className='lg:text-7xl text-5xl font-semibold'>We Build <br />
                 <span className='text-purple-500 font-bold'>Productive</span> Apps</h1>
